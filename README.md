@@ -6,9 +6,14 @@ Flow package with utilities and components to create Fusion based backend module
 
 A simple badge aka label, potentially with custom error level
 
-### Example
+<details open>
 
-<a href="Docs/badge.png"><img align="right" hspace="10" alt="Badge" src="Docs/badge.png" width="20%"/></a>
+<summary>
+
+### Example
+</summary>
+
+<a href="Docs/badge.png" target="_blank"><img align="right" hspace="10" alt="Badge" src="Docs/badge.png" width="20%"/></a>
 
 ```xml
 <NeosBE:Badge>Default</NeosBE:Badge>
@@ -26,9 +31,13 @@ A button that can be used as
 * Trigger to show a modal
 * Submit button for forms
 
-### Example
+<details open>
 
-<a href="Docs/button.png"><img align="right" hspace="10" alt="Button" src="Docs/button.png" width="20%"/></a>
+<summary>
+
+### Example
+</summary>
+<a href="Docs/button.png" target="_blank"><img align="right" hspace="10" alt="Button" src="Docs/button.png" width="20%" /></a>
 
 ```xml
 <NeosBE:Button>Default Button</NeosBE:Button>
@@ -45,9 +54,14 @@ Renders and removes flash messages as unordered list
 
 **Note:** This component is used by `NeosBE:Module` and usually does not have to be added manually
 
-### Example
+<details open>
 
-<a href="Docs/flashmessages.png"><img align="right" hspace="10" alt="FlashMessages" src="Docs/flashmessages.png" width="20%"/></a>
+<summary>
+
+### Example
+</summary>
+
+<a href="Docs/flashmessages.png" target="_blank"><img align="right" hspace="10" alt="FlashMessages" src="Docs/flashmessages.png" width="20%"/></a>
 
 ```xml
 <NeosBE:FlashMessages attributes.id="neos-notifications-inline" @children="content.itemRenderer">
@@ -61,9 +75,14 @@ Renders and removes flash messages as unordered list
 
 **Note:** This component is used by `NeosBE:Module` and usually does not have to be added manually
 
-### Example
+<details open>
 
-<a href="Docs/icon.png"><img align="right" hspace="10" alt="Icon" src="Docs/icon.png" width="20%"/></a>
+<summary>
+
+### Example
+</summary>
+
+<a href="Docs/icon.png" target="_blank"><img align="right" hspace="10" alt="Icon" src="Docs/icon.png" width="20%"/></a>
 
 ```xml
 <NeosBE:Icon icon="check-circle"/>
@@ -75,9 +94,14 @@ Modal dialog that is hidden by default and can be shown via the `Button` compone
 
 **Note:** To display a form within a modal, use the [ModalForm](#modal-form) component
 
-### Example
+<details open>
 
-<a href="Docs/modal.png"><img align="right" hspace="10" alt="Modal" src="Docs/modal.png" width="20%"/></a>
+<summary>
+
+### Example
+</summary>
+
+<a href="Docs/modal.png" target="_blank"><img align="right" hspace="10" alt="Modal" src="Docs/modal.png" width="20%"/></a>
 
 ```xml
 <NeosBE:Modal id="some-modal">
@@ -96,9 +120,14 @@ Modal dialog that is hidden by default and can be shown via the `Button` compone
 
 **Note:** To display a form within a modal, use the [ModalForm](ModalForm) component
 
-### Example
+<details open>
 
-<a href="Docs/modalform.png"><img align="right" hspace="10" alt="ModalForm" src="Docs/modalform.png" width="20%"/></a>
+<summary>
+
+### Example
+</summary>
+
+<a href="Docs/modalform.png" target="_blank"><img align="right" hspace="10" alt="ModalForm" src="Docs/modalform.png" width="20%"/></a>
 
 ```xml
 <NeosBE:ModalForm id="some-form-modal" header="Some modal header" cancelButtonText="Cancel" submitButtonIcon="trash" submitButtonText="Delete record" isDangerous={true} form.target.action="delete" form.target.arguments={{id: someRecord.id}}>
@@ -118,7 +147,12 @@ Modal dialog that is hidden by default and can be shown via the `Button` compone
 
 A link pointing to a different Neos Backend Module
 
+<details open>
+
+<summary>
+
 ### Example
+</summary>
 
 ```xml
 <NeosBE:ModuleLink module="administration/users" action="new">Add new user</NeosBE:ModuleLink>
@@ -129,7 +163,12 @@ A link pointing to a different Neos Backend Module
 
 Page navigation usually combined with a `NeosBE:Table` component
 
-### Example:
+<details open>
+
+<summary>
+
+### Example
+</summary>:
 
 ```xml
 <NeosBE:Pagination numberOrResults={records.count} />
@@ -140,7 +179,12 @@ Page navigation usually combined with a `NeosBE:Table` component
 A DateTime value that is rendered as relative time using `Intl.RelativeTimeFormat()` on the client side
 See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat
 
-### Example:
+<details open>
+
+<summary>
+
+### Example
+</summary>:
 
 ```
 <NeosBE:RelativeTime dateTime={someDateTime} />
@@ -150,12 +194,27 @@ See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Obj
 
 ## Table
 
+<details open>
+
+<summary>
+
 ### Example
+</summary>
 
 ## ToggleButton
 
+<details open>
+
+<summary>
+
 ### Example
+</summary>
 
 ## Translate
 
+<details open>
+
+<summary>
+
 ### Example
+</summary>
