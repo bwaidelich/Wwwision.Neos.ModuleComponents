@@ -1,0 +1,55 @@
+/*
+A DateTime value that is rendered as relative time using `Intl.RelativeTimeFormat()` on the client side
+See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat
+
+# Usage
+
+```
+<NeosBE:RelativeTime dateTime={someDateTime} />
+<NeosBE:RelativeTime dateTime={someDateTime} formatFallback="Y-m-d H:i" />
+<NeosBE:RelativeTime dateTime={someDateTime} options.numeric="always" options.style="narrow" />
+```
+*/
+prototype(NeosBE:RelativeTime) < prototype(Neos.Fusion:Component) {
+
+    # A PHP DateTime instance
+    dateTime = null
+
+    # PHP format string for the title attribute of the resulting `<time>` tag (see https://www.php.net/manual/en/datetime.format.php)
+    formatTitle = 'd.m.Y H:i:s'
+
+    # PHP format string for the contents of the resulting `<time>` tag, that is rendered if JavaScript is disabled or the browser does not yet support `Intl.RelativeTimeFormat()`
+    formatFallback = 'd.m.Y'
+    locale = ${NeosBE.I18n.locale()}
+
+    // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat/RelativeTimeFormat
+    options = Neos.Fusion:DataStructure {
+        # The locale matching algorithm to use (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locale_identification_and_negotiation)
+        # Possible values: 'lookup', 'best fit'
+        localeMatcher = null
+
+        # The numbering system to use for number formatting (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale/getNumberingSystems#supported_numbering_system_types)
+        # Possible values: 'adlm', 'ahom', 'arab', ...
+        numberingSystem = null
+
+        # The style of the formatted relative time
+        # Possible values: 'long', 'short', 'narrow'
+        style = 'long'
+
+        # Whether to use numeric values in the output
+        # Possible values: 'always' 'auto'
+        numeric = 'auto'
+    }
+
+    renderer = Neos.Fusion:Tag {
+        tagName = 'time'
+        attributes {
+            title = ${Date.format(props.dateTime, props.formatTitle)}
+            dateTime = ${Date.format(props.dateTime, 'Y-m-d\TH:i:sP')}
+            data-relativetime = ${true}
+            data-locale = ${props.locale}
+            data-options = ${Json.stringify(props.options)}
+        }
+        content = ${Date.format(props.dateTime, props.formatFallback)}
+    }
+}

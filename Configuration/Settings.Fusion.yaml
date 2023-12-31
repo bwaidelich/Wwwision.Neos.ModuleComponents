@@ -1,0 +1,7 @@
+Neos:
+  Fusion:
+    defaultContext:
+      NeosBE.FlashMessage: Wwwision\Neos\ModuleComponents\Eel\FlashMessageHelper
+      NeosBE.I18n: Wwwision\Neos\ModuleComponents\Eel\I18nHelper
+      NeosBE.ModuleLink: Wwwision\Neos\ModuleComponents\Eel\ModuleLinkHelper
+      NeosBE.Pagination: Wwwision\Neos\ModuleComponents\Eel\PaginationHelper

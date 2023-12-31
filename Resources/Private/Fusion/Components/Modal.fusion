@@ -1,0 +1,64 @@
+/*
+Modal dialog that is hidden by default and can be shown via the `Button` component
+
+## Usage
+
+```
+<NeosBE:Modal id="some-modal">
+    <NeosBE:Modal.Header header="Some modal header">
+        Some modal content
+    </NeosBE:Modal.Header>
+    <NeosBE:Modal.Footer cancelButtonText="Some cancel text"/>
+</NeosBE:Modal>
+// ...
+<NeosBE:Button modal="some-modal">Show modal</NeosBE:Button>
+```
+*/
+prototype(NeosBE:Modal) < prototype(Neos.Fusion:Component) {
+
+    # ID attribute of the modal element – this is required in order to target the modal from Button components: `<NeosBE:Button modal="<id>" />`
+    id = ''
+
+    # additional HTML attributes of the modal
+    attributes = Neos.Fusion:DataStructure
+
+    # Main modal content
+    content = ''
+
+    # Modals are hidden by default – with this flag they can be made visible programatically (e.g. for deep links that should show the modal by default)
+    hidden = true
+
+    renderer = afx`
+        <div class="neos-hide" class.@if.isHidden={props.hidden} {...props.attributes} id={props.id}>
+            <div class="neos-modal-centered">
+                <div class="neos-modal-content">
+                    {props.content}
+                </div>
+            </div>
+            <div class="neos-modal-backdrop neos-in"></div>
+        </div>
+    `
+}
+prototype(NeosBE:Modal.Header) < prototype(Neos.Fusion:Component) {
+    header = ''
+    content = ''
+    renderer = afx`
+        <div class="neos-modal-header">
+            <button type="button" class="neos-close neos-button" data-dismiss="modal"></button>
+            <div class="neos-header">{props.header}</div>
+            <div class="neos-subheader" @if.isNotBlank={!String.isBlank(props.content)}>
+                {props.content}
+            </div>
+        </div>
+    `
+}
+prototype(NeosBE:Modal.Footer) < prototype(Neos.Fusion:Component) {
+    cancelButtonText = ''
+    content = ''
+    renderer = afx`
+        <div class="neos-modal-footer">
+            <a href="#" class="neos-button" data-dismiss="modal" @if.hasCancelButtonText={!String.isBlank(props.cancelButtonText)}>{props.cancelButtonText}</a>
+            {props.content}
+        </div>
+    `
+}

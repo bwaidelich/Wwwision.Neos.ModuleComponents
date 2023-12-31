@@ -1,0 +1,9 @@
+prototype(NeosBE:Translate) < prototype(Neos.Fusion:Component) {
+    id = ''
+    arguments = Neos.Fusion:DataStructure
+    originalLabel = null
+    source = 'Modules'
+    quantity = null
+
+    renderer = ${NeosBE.I18n.translateById(request, props.id, props.arguments, props.quantity, props.source)}
+}

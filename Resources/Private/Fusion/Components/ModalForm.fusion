@@ -1,0 +1,66 @@
+/*
+Modal dialog containing a Form that is hidden by default and can be shown via the `Button` component
+
+## Usage
+
+```
+<NeosBE:ModalForm id="some-form-modal" header="Some modal header" cancelButtonText="Cancel" submitButtonIcon="trash" submitButtonText="Delete record" isDangerous={true} form.target.action="delete" form.target.arguments={{id: someRecord.id}}>
+    Are you sure you want to delete record "{someRecord.title}"?<br/>
+    <br/>
+    <Neos.Fusion.Form:Neos.BackendModule.FieldContainer field.name="form[comment]" label="Comment (optional):">
+        <Neos.Fusion.Form:Textarea attributes.class="neos-span12" attributes.style="height: 5em; resize: vertical"/>
+    </Neos.Fusion.Form:Neos.BackendModule.FieldContainer>
+</NeosBE:ModalForm>
+// ...
+<NeosBE:Button modal="some-form-modal">Show modal</NeosBE:Button>
+```
+*/
+prototype(NeosBE:ModalForm) < prototype(Neos.Fusion:Component) {
+    # ensure the form-context is evaluated first so it is available for calculating `props` (see Neos.Fusion.Form:Component.Form)
+    @context.form = ${this.form}
+    form = Neos.Fusion.Form:Definition.Form
+
+    # ID attribute of the modal element – this is required in order to target the modal from Button components: `<NeosBE:Button modal="<id>" />`
+    id = ''
+
+    # Header text of the form
+    header = ''
+
+    # Contents of the `cancel` button
+    cancelButtonText = ''
+
+    # Contents of the `submit` button
+    submitButtonText = ''
+
+    # Optional icon of the `submit` button
+    submitButtonIcon = ''
+
+    # Additional HTML attributes of the submit button
+    submitButtonAttributes = Neos.Fusion:DataStructure
+
+    # Whether the `submit` button should be rendered as "dangerous" (usually in orange/red)
+    isDangerous = false
+
+    # Additional HTML attributes of the modal
+    attributes = Neos.Fusion:DataStructure
+
+    # Additional HTML attributes of the form
+    formAttributes = Neos.Fusion:DataStructure
+
+    content = ''
+
+    hidden = true
+
+    renderer = afx`
+        <NeosBE:Modal id={props.id} hidden={props.hidden} attributes={props.attributes}>
+            <NeosBE:Modal.Header header={props.header}>
+                <Neos.Fusion.Form:Form attributes={Array.concat(props.formAttributes, {id: props.id + '_form'})} form={props.form}>
+                    {props.content}
+                </Neos.Fusion.Form:Form>
+            </NeosBE:Modal.Header>
+            <NeosBE:Modal.Footer cancelButtonText={props.cancelButtonText}>
+                <NeosBE:Button attributes={props.submitButtonAttributes} content={props.submitButtonText} icon={props.submitButtonIcon} isDangerous={props.isDangerous} isPrimary={!props.isDangerous} form={props.id + '_form'} />
+            </NeosBE:Modal.Footer>
+        </NeosBE:Modal>
+    `
+}

@@ -1,0 +1,55 @@
+/*
+The root component used to render the backend module content for one MVC action
+
+# Usage
+
+```
+Some.Package.SomeController.index = NeosBE:Module {
+    content = 'main content'
+}
+```
+
+With the `translateContent` prop set to `true`, "LLL:<id>" strings in flash messages, main and footer content will be replaced using the \Wwwision\Neos\ModuleComponents\Eel\I18nHelper::translateContent() Eel helper:
+
+```
+Some.Package.SomeController.someOtherAction = NeosBE:Module {
+    translateContent = true
+    content = afx`
+        <NeosBE:Badge>This will be LLL:translated</NeosBE:Badge>
+    `
+    footer = afx`
+        <NeosBE:Button action="index" icon="eye">LLL:alsoTranslated</NeosBE:Button>
+    `
+}
+```
+*/
+prototype(NeosBE:Module) < prototype(Neos.Fusion:Component) {
+
+    # Main content of the module
+    content = ''
+
+    # Optional footer content of the module
+    footer = ''
+
+    # If true, all "LLL:<id>" strings in flash messages, main and footer content will be replaced using the \Wwwision\Neos\ModuleComponents\Eel\I18nHelper::translateContent() Eel helper
+    translateContent = false
+
+    renderer = Neos.Fusion:Join {
+        flashMessages = NeosBE:FlashMessages {
+            attributes.id = "neos-notifications-inline"
+            content.itemRenderer = afx`<li data-type={String.toLowerCase(flashMessage.severity)}>{flashMessage}</li>`
+        }
+        mainContent = Neos.Fusion:Tag {
+            tagName = 'div'
+            attributes.class = "neos-module-content neos-row-fluid"
+            content = ${props.content}
+        }
+        footerContent = Neos.Fusion:Tag {
+            tagName = 'div'
+            attributes.class = "neos-footer"
+            content = ${props.footer}
+        }
+        @process.translate = ${NeosBE.I18n.translateContent(request, value)}
+        @process.translate.@if.enabled = ${props.translateContent}
+    }
+}

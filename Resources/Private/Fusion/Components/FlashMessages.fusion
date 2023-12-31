@@ -1,0 +1,14 @@
+/*
+Renders and removes flash messages as unordered list
+
+*Note:* This component is used by `NeosBE:Module` and usually does not have to be added manually
+*/
+prototype(NeosBE:FlashMessages) < prototype(Neos.Fusion:Tag) {
+    tagName = 'ul'
+    content = Neos.Fusion:Loop {
+        items = ${NeosBE.FlashMessage.getMessagesAndFlush(request)}
+        itemName = 'flashMessage'
+        itemRenderer = afx`<li>{flashMessage}</li>`
+    }
+    @if.hasMessages = ${NeosBE.FlashMessage.hasMessages(request)}
+}

@@ -1,0 +1,45 @@
+/*
+A button that can be used as
+
+* Link to actions of the current module
+* Link to other modules
+* Trigger to show a modal
+* Submit button for forms
+*/
+prototype(NeosBE:ToggleButton) < prototype(Neos.Fusion:Component) {
+    # ID of the HTML element to toggle visibility for
+    target = ''
+    icon = 'chevron-down'
+    iconToggled = 'chevron-up'
+    content = ''
+
+
+    #renderer = afx`<i class="fold-toggle fas fa-chevron-down icon-white" data-toggle={props.target}>{props.content}</i>`
+
+    renderer = Neos.Fusion:Tag {
+        tagName = 'a'
+        attributes {
+            href = ${'#' + props.target}
+            class = 'neos-button fold-toggle'
+            data-toggle = ${props.target}
+            data-icon = ${'fa-' + props.icon}
+            data-icon.@if.hasIcon = ${!String.isBlank(props.icon)}
+            data-icontoggled = ${'fa-' + props.iconToggled}
+            data-icontoggled.@if.hasIcon = ${!String.isBlank(props.iconToggled)}
+        }
+        content = Neos.Fusion:Case {
+            justIcon {
+                condition = ${!String.isBlank(props.icon) && String.isBlank(props.content)}
+                renderer = afx`<NeosBE:Icon icon={props.icon} />`
+            }
+            withIcon {
+                condition = ${!String.isBlank(props.icon)}
+                renderer = afx`<NeosBE:Icon icon={props.icon} />&nbsp;&nbsp;{props.content}`
+            }
+            default {
+                condition = true
+                renderer = ${props.content}
+            }
+        }
+    }
+}

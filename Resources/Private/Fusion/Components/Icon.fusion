@@ -1,0 +1,20 @@
+/*
+Renders a single icon (from fontawesome)
+
+See https://fontawesome.com/v5/search?m=free
+
+# Usage
+
+```
+<NeosBE:Icon icon="edit" />
+
+<NeosBE:Icon icon="trash" />
+```
+*/
+prototype(NeosBE:Icon) < prototype(Neos.Fusion:Component) {
+
+    # name of the icon to render (see https://fontawesome.com/v5/search?m=free)
+    icon = ''
+
+    renderer = afx`<i class={'fas fa-' + props.icon +  ' icon-white'}></i>`
+}

@@ -1,0 +1,51 @@
+/*
+A simple badge aka label, potentially with custom error level
+
+# Usage
+
+```
+<NeosBE:Badge>Some default badge</NeosBE:Badge>
+<NeosBE:Badge errorLevel="1">Success</NeosBE:Badge>
+<NeosBE:Badge errorLevel="2">Warning</NeosBE:Badge>
+<NeosBE:Badge errorLevel="3" content="Error" />
+```
+
+*Note:* It can be useful to wrap this component to reflect the state of some domain concept.
+
+## Example
+
+prototype(Some.Package:SomeCustomStateBadge) < prototype(Neos.Fusion:Component) {
+    state = null
+    renderer = NeosBE:Badge {
+        errorLevel = Neos.Fusion:Match {
+            @subject = ${props.state}
+            @default = 0
+            'active' = 1
+            'disabled' = 2
+            'error' = 3
+        }
+        content = ${props.state}
+    }
+}
+*/
+prototype(NeosBE:Badge) < prototype(Neos.Fusion:Component) {
+
+    # Optional error level for this badge. 0: no level (grey), 1: success, 2: warning, 3: error
+    errorLevel = 0
+
+    # Content of the badge
+    content = ''
+
+    renderer.@context {
+        class = Neos.Fusion:Match {
+            @subject = ${props.errorLevel}
+            @default = 'neos-label'
+            1 = 'neos-label-success'
+            2 = 'neos-label-warning'
+            3 = 'neos-label-important'
+        }
+    }
+    renderer = afx`
+        <span class={class}>{props.content}</span>
+    `
+}

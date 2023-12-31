@@ -1,0 +1,40 @@
+{
+    "description": "Flow package with utilities and components to create Fusion based backend modules with the common Neos look and feel",
+    "type": "neos-package",
+    "name": "wwwision/neos-modulecomponents",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "bwaidelich",
+            "email": "b.waidelich@wwwision.de"
+        }
+    ],
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/bwaidelich"
+        },
+        {
+            "type": "paypal",
+            "url": "https://www.paypal.me/bwaidelich"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "neos/neos": "^7.3 || ^8.0",
+        "neos/fusion-form": "^2"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wwwision\\Neos\\ModuleComponents\\": "Classes"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Wwwision.Neos.ModuleComponents"
+        }
+    }
+}

@@ -1,0 +1,97 @@
+prototype(NeosBE:Table) < prototype(Neos.Fusion:Component) {
+    content = ''
+    class = 'neos-table'
+    renderer = afx`
+        <table class={props.class}>
+            {props.content}
+        </table>
+    `
+}
+
+prototype(NeosBE:Table.Head) < prototype(Neos.Fusion:Component) {
+    content = ''
+    renderer = afx`
+        <thead>
+            {props.content}
+        </thead>
+    `
+}
+prototype(NeosBE:Table.Body) < prototype(Neos.Fusion:Component) {
+    content = ''
+    renderer = afx`
+        <tbody>
+            {props.content}
+        </tbody>
+    `
+}
+prototype(NeosBE:Table.Row) < prototype(Neos.Fusion:Component) {
+    content = ''
+    attributes = Neos.Fusion:DataStructure
+    renderer = afx`
+        <tr {...props.attributes}>
+            {props.content}
+        </tr>
+    `
+}
+prototype(NeosBE:Table.FolderRow) < prototype(Neos.Fusion:Component) {
+    content = ''
+    attributes = Neos.Fusion:DataStructure
+    renderer = afx`
+        <tr class="neos-folder" {...props.attributes}>
+            {props.content}
+        </tr>
+    `
+}
+prototype(NeosBE:Table.CollapsedRow) < prototype(Neos.Fusion:Component) {
+    content = ''
+    id = ''
+    collapsed = true
+    attributes = Neos.Fusion:DataStructure
+    renderer = afx`
+        <tr class="neos-hide" class.@if.collapsed={props.collapsed} id={props.id} {...props.attributes}>
+            {props.content}
+        </tr>
+    `
+}
+
+
+prototype(NeosBE:Table.ClickableRow) < prototype(Neos.Fusion:Component) {
+    content = ''
+    attributes = Neos.Fusion:DataStructure
+    target = Neos.Fusion:UriBuilder
+    renderer = afx`
+        <tr onclick="window.location.href=this.dataset.target" style="cursor: pointer" data-target={props.target} {...props.attributes}>
+            {props.content}
+        </tr>
+    `
+}
+prototype(NeosBE:Table.Cell) < prototype(Neos.Fusion:Component) {
+    content = ''
+    attributes = Neos.Fusion:DataStructure
+    renderer = afx`
+        <td {...props.attributes}>
+            {props.content}
+        </td>
+    `
+}
+prototype(NeosBE:Table.HeaderCell) < prototype(Neos.Fusion:Component) {
+    content = ''
+    attributes = Neos.Fusion:DataStructure
+    renderer = afx`
+        <th {...props.attributes}>
+            {props.content}
+        </th>
+    `
+}
+prototype(NeosBE:Table.ActionCell) < prototype(Neos.Fusion:Component) {
+    content = ''
+    attributes = Neos.Fusion:DataStructure
+    renderer = afx`
+        <td class="neos-action" {...props.attributes}>
+            <div class="neos-pull-right">
+                {props.content}
+            </div>
+        </td>
+    `
+}
+

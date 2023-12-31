@@ -1,0 +1,125 @@
+/*
+A button that can be used as
+
+* Link to actions of the current module
+* Link to other modules
+* Trigger to show a modal
+* Submit button for forms
+
+# Usage
+
+```
+<NeosBE:Button>Some submit button<NeosBE:Button>
+
+<NeosBE:Button form="form-id">Some submit button for a specific form<NeosBE:Button>
+
+<NeosBE:Button action="someOtherAction" controller="SomeOtherController" arguments={{foo: "bar"}} content="Some action link" />
+
+<NeosBE:Button module="administration/users">Some module link</NeosBE:Button>
+
+<NeosBE:Button modal="modal-id" content="Trigger some modal" />
+```
+
+All button types share the follwing properties:
+
+* `icon` - can be used to prefix the button content with an icon (see https://fontawesome.com/v5/search?m=free)
+* `isPrimary` - if set to `true` the button is highlighted as the primary button
+* `isDangerous` - if set to `true` the button is highlighted as a dangerous button (usually with orange/red colors)
+
+## Examples
+
+```
+<NeosBE:Button icon="edit" />
+
+<NeosBE:Button icon="trash" isDangerous={true} content="Remove" />
+
+<NeosBE:Button isPrimary={true} content="Submit" />
+```
+
+*/
+prototype(NeosBE:Button) < prototype(Neos.Fusion:Component) {
+
+    # Content of the button
+    content = ''
+
+    # Arbitrary attributes that will be added to the resulting HTML tag
+    attributes = Neos.Fusion:DataStructure
+
+
+    # Optional icon of the button (see https://fontawesome.com/v5/search?m=free)
+    icon = ''
+
+    # If set to `true` the button is highlighted as the primary button
+    isPrimary = false
+
+    # If set to `true` the button is highlighted as a dangerous button (usually with orange/red colors)
+    isDangerous = false
+
+
+    # If set, the button will link to the specified module (e.g. "administration/users"). This can be combined with  `action`, `arguments` and `addQueryString`
+    module = ''
+
+    # Target MVC action name
+    action = ''
+
+    # Target MVC controller name
+    controller = ''
+
+    # Arguments to be passed to the target MVC action
+    arguments = Neos.Fusion:DataStructure
+
+    # Whether the current query string should remain in the URL of the link
+    addQueryString = false
+
+    # If set the button turns into a submit button for the specified form id
+    form = ''
+
+    # If set the button just triggers the modal with the specified id
+    modal = ''
+
+    renderer.@context {
+        class = ${'neos-button' + (props.isPrimary ? ' neos-button-primary' : '') + (props.isDangerous ? ' neos-button-danger' : '')}
+        content = Neos.Fusion:Case {
+            withIcon {
+                condition = ${!String.isBlank(props.icon)}
+                renderer = afx`<NeosBE:Icon icon={props.icon} />&nbsp;&nbsp;{props.content}`
+            }
+            default {
+                condition = true
+                renderer = ${props.content}
+            }
+        }
+    }
+    renderer = Neos.Fusion:Case {
+        moduleLinkButton {
+            condition = ${!String.isBlank(props.module)}
+            renderer = NeosBE:ModuleLink {
+                module = ${props.module}
+                action = ${props.action}
+                arguments = ${props.arguments}
+                addQueryString = ${props.addQueryString}
+                attributes.class=${class}
+                content = ${content}
+            }
+        }
+        linkButton {
+            condition = ${!String.isBlank(props.action)}
+            renderer = afx`<Neos.Fusion:Link.Action
+                href.controller={props.controller}
+                href.action={props.action}
+                href.arguments={props.arguments}
+                href.addQueryString={props.addQueryString}
+                class={class}
+                {...props.attributes}
+            >{content}</Neos.Fusion:Link.Action>`
+        }
+        modalButton {
+            condition = ${!String.isBlank(props.modal)}
+            renderer = afx`<a class={class} href={'#' + props.modal} data-toggle="modal" {...props.attributes}>{content}</a>`
+        }
+        submitButton {
+            condition = true
+            renderer = afx`<button class={class} type="submit" form={props.form} form.@if.hasForm={!String.isBlank(props.form)} {...props.attributes}>{content}</button>`
+        }
+    }
+}

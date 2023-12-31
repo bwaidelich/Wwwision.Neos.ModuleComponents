@@ -1,0 +1,57 @@
+.neos .neos-module-content h1 {
+    font-size: 150%;
+    padding: 0.5em 0;
+}
+
+.neos .neos-module-content h2 {
+    font-size: 130%;
+    padding: 1.5em 0 1em 0;
+}
+
+.neos .neos-module-content h3 {
+    font-size: 120%;
+}
+
+.neos .neos-module-content h4 {
+    font-size: 110%;
+}
+
+.neos .neos-module-content .neos-label,
+.neos .neos-module-content .neos-label-important,
+.neos .neos-module-content .neos-label-warning,
+.neos .neos-module-content .neos-label-success {
+    padding: 0 0.2em;
+    border-radius: 0.2em;
+}
+
+.neos .neos-module-content ol, .neos .neos-module-content ul {
+    margin: .5em 0 1em 0;
+}
+
+.neos .neos-module-content ol li, .neos .neos-module-content ul li {
+    list-style: disc;
+    margin-left: 2em;
+    line-height: 1.7em;
+}
+
+.neos .neos-module-content ol li {
+    list-style: decimal;
+}
+
+.neos .neos-module-content tr:hover td {
+    background-color: #3f3f3f;
+}
+
+.neos .neos-module-content .neos-modal-footer {
+    clear: both;
+}
+
+.neos .neos-module-content tr.neos-folder td div.neos-pull-right .neos-button, .neos .neos-module-content tr.neos-folder td div.neos-pull-right .neos-button:hover {
+    background: none;
+    padding: 0;
+    line-height: 1em;
+}
+
+.neos .neos-module-content .page-navigation ul, .neos .neos-module-content .page-navigation ul li {
+    margin: 0;
+}

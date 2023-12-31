@@ -1,0 +1,39 @@
+/*
+A link pointing to a different Neos Backend Module
+
+# Usage
+
+```
+<NeosBE:ModuleLink module="administration/users" action="new">Add new user</NeosBE:ModuleLink>
+<NeosBE:ModuleLink module="management/media" arguments.view="list" arguments.orderBy="Name" arguments.filter="Document">List documents</NeosBE:ModuleLink>
+```
+*/
+prototype(NeosBE:ModuleLink) < prototype(Neos.Fusion:Component) {
+
+    # Name of the target MVC action
+    action = 'index'
+
+    # Path of the BE module, as configured via `Neos.Neos.modules` settings, e.g. "administration/users"
+    module = ''
+
+    # Arguments to be passed to the target MVC action
+    arguments = Neos.Fusion:DataStructure
+
+    # Whether to keep current query arguments in the resulting URL
+    addQueryString = false
+
+    # Additional HTML attributes for the resulting `<a>` tag
+    attributes = Neos.Fusion:DataStructure
+
+    # Contents of the link
+    content = ''
+
+    renderer = Neos.Fusion:Tag {
+        tagName = 'a'
+        attributes {
+            href = ${NeosBE.ModuleLink.create(request, props.module, props.action || 'index', props.arguments, props.addQueryString)}
+            @apply.attributes = ${props.attributes}
+        }
+        content = ${props.content}
+    }
+}

@@ -1,0 +1,46 @@
+/*
+Page navigation usually combined with a `NeosBE:Table` component
+
+# Usage
+
+```
+<NeosBE:Pagination numberOrResults={records.count} />
+```
+*/
+prototype(NeosBE:Pagination) < prototype(Neos.Fusion:Component) {
+    # Total number of results (required to determine the number of page links to display)
+    numberOfResults = 0
+
+    # Maximum number of elements on one page
+    resultsPerPage = 10
+
+    # Name of the URI query parameter that will be passed to the pagination links
+    queryParameter = 'page'
+
+    renderer.@context.paginationItems = ${NeosBE.Pagination.create({numberOfResults: props.numberOfResults, resultsPerPage: props.resultsPerPage, queryParameter: props.queryParameter}, request.httpRequest)}
+    renderer = afx`
+        <div class="page-navigation" @if.hasResults={paginationItems}>
+            <ul>
+                <Neos.Fusion:Loop items={paginationItems} itemName="link">
+                    <NeosBE:Pagination.Link label={link.label} href={link.href} type={link.type} />
+                </Neos.Fusion:Loop>
+            </ul>
+        </div>
+    `
+}
+
+prototype(NeosBE:Pagination.Link) < prototype(Neos.Fusion:Component) {
+    label = ''
+    href = ''
+    type = ''
+
+    renderer = Neos.Fusion:Match {
+        @subject = ${props.type}
+        @default = afx`<li><a href={props.href}>{props.label}</a></li>`
+
+        previous = afx`<li class="previous"><a href={props.href}>previous</a></li>`
+        current = afx`<li class="current">{props.label}</li>`
+        ellipsis = afx`<li>...</li>`
+        next = afx`<li class="next"><a href={props.href}>next</a></li>`
+    }
+}
