@@ -1,6 +1,29 @@
+/*
+Main component for HTML tables
+
+# Usage
+
+```
+<NeosBE:Table>
+    <NeosBE:Table.Row>
+        <NeosBE:Table.Cell>Some cell</NeosBE:Table.Cell>
+        <NeosBE:Table.Cell>Some cell</NeosBE:Table.Cell>
+    </NeosBE:Table.Row>
+    <NeosBE:Table.Row>
+        <NeosBE:Table.Cell>Some cell</NeosBE:Table.Cell>
+        <NeosBE:Table.Cell>Some cell</NeosBE:Table.Cell>
+    </NeosBE:Table.Row>
+</NeosBE:Table>
+```
+*/
 prototype(NeosBE:Table) < prototype(Neos.Fusion:Component) {
+
+    # Contents of the table, commonly nested `NeosBE:Table.Head`, `NeosBE:Table.Body` or `NeosBE:Table.Row` components
     content = ''
+
+    # Default CSS class attribute of the table
     class = 'neos-table'
+
     renderer = afx`
         <table class={props.class}>
             {props.content}
@@ -8,45 +31,111 @@ prototype(NeosBE:Table) < prototype(Neos.Fusion:Component) {
     `
 }
 
+/*
+Component for the `<thead>` area of a HTML table
+*/
 prototype(NeosBE:Table.Head) < prototype(Neos.Fusion:Component) {
+
+    # Contents of the table header, commonly a number of `NeosBE:Table.Row` components
     content = ''
+
     renderer = afx`
         <thead>
             {props.content}
         </thead>
     `
 }
+
+/*
+Component for the `<tbody>` area of a HTML table
+*/
 prototype(NeosBE:Table.Body) < prototype(Neos.Fusion:Component) {
+
+    # Contents of the table body, commonly a number of `NeosBE:Table.Row` components
     content = ''
+
     renderer = afx`
         <tbody>
             {props.content}
         </tbody>
     `
 }
+
+/*
+Component for a single HTML table row
+*/
 prototype(NeosBE:Table.Row) < prototype(Neos.Fusion:Component) {
+
+    # Contents of the table row, commonly one or more `NeosBE:Table.Cell` component(s)
     content = ''
+
+    # HTML attributes of the table row
     attributes = Neos.Fusion:DataStructure
+
     renderer = afx`
         <tr {...props.attributes}>
             {props.content}
         </tr>
     `
 }
+
+/*
+A HTML table row that has the "neos-folder" CSS class
+
+*Note:* This row has no background by default and is commonly used in conjunction with collapsed rows
+
+# Usage
+
+```
+<NeosBE:Table.FolderRow>
+    <NeosBE:Table.Cell>Expand me</NeosBE:Table.Cell>
+    <NeosBE:Table.ActionCell>
+        <NeosBE:ToggleButton target="collapsed-row" />
+    </NeosBE:Table.ActionCell>
+</NeosBE:Table.FolderRow>
+<NeosBE:Table.CollapsedRow id="collapsed-row">
+    <NeosBE:Table.Cell attributes.colspan="2">
+        This is only visible if the row is expanded
+    </NeosBE:Table.Cell>
+</NeosBE:Table.CollapsedRow>
+```
+*/
 prototype(NeosBE:Table.FolderRow) < prototype(Neos.Fusion:Component) {
+
+    # Contents of the folder row, commonly one or more `NeosBE:Table.Cell` component(s)
     content = ''
+
+    # Additional HTML attributes of the folder row
     attributes = Neos.Fusion:DataStructure
+
     renderer = afx`
         <tr class="neos-folder" {...props.attributes}>
             {props.content}
         </tr>
     `
 }
+
+/*
+A table row that is invisible by default and can be expanded with the `NeosBE:ToggleButton`
+
+# Usage
+
+See `NeosBE:Table.FolderRow`
+*/
 prototype(NeosBE:Table.CollapsedRow) < prototype(Neos.Fusion:Component) {
-    content = ''
+
+    # ID attribute of the collapsed row – this is required in order to target the row from the `NeosBE:ToggleButton`
     id = ''
+
+    # Contents of the collapsed row, commonly one or more `NeosBE:Table.Cell` component(s)
+    content = ''
+
+    # By default this row is hidden, but with this prop it can be expanded programatically (e.g. for deep links)
     collapsed = true
+
+    # Additional HTML attributes of the row
     attributes = Neos.Fusion:DataStructure
+
     renderer = afx`
         <tr class="neos-hide" class.@if.collapsed={props.collapsed} id={props.id} {...props.attributes}>
             {props.content}
@@ -54,7 +143,26 @@ prototype(NeosBE:Table.CollapsedRow) < prototype(Neos.Fusion:Component) {
     `
 }
 
+/*
+A table row that turns the entire content into a click area
 
+This component can be used in order to increase the interactive area for better UX
+
+# Usage
+
+```
+<NeosBE:Table.ClickableRow target.action="show" target.arguments={{id: item.id}}>
+    <NeosBE:Table.Cell>
+        Title #{item.id}
+    </NeosBE:Table.Cell>
+    <NeosBE:Table.ActionCell>
+        <NeosBE:Button icon="eye" action="show" arguments={{id: item.id}}/>
+    </NeosBE:Table.ActionCell>
+</NeosBE:Table.ClickableRow>
+```
+
+**Note:** In this example the whole table row links to the "show" action, But there is also an additional `NeosBE:Button` for better accessibility
+*/
 prototype(NeosBE:Table.ClickableRow) < prototype(Neos.Fusion:Component) {
     content = ''
     attributes = Neos.Fusion:DataStructure
@@ -65,15 +173,27 @@ prototype(NeosBE:Table.ClickableRow) < prototype(Neos.Fusion:Component) {
         </tr>
     `
 }
+
+/*
+A single table cell (`<td />`)
+*/
 prototype(NeosBE:Table.Cell) < prototype(Neos.Fusion:Component) {
+    # Contents of the cell
     content = ''
+
+    # HTML attributes of the table cell
     attributes = Neos.Fusion:DataStructure
+
     renderer = afx`
         <td {...props.attributes}>
             {props.content}
         </td>
     `
 }
+
+/*
+A single table header cell (`<th />`)
+*/
 prototype(NeosBE:Table.HeaderCell) < prototype(Neos.Fusion:Component) {
     content = ''
     attributes = Neos.Fusion:DataStructure
@@ -83,6 +203,31 @@ prototype(NeosBE:Table.HeaderCell) < prototype(Neos.Fusion:Component) {
         </th>
     `
 }
+
+/*
+A table cell for interactive components
+
+This cell is usually used on the far right of a table to align all buttons
+
+# Usage
+
+```
+<NeosBE:Table.Row>
+    <NeosBE:Table.Cell>
+        <NeosBE:Icon icon="cube"/>
+    </NeosBE:Table.Cell>
+    <NeosBE:Table.Cell>
+        Title #{item.id}
+    </NeosBE:Table.Cell>
+    <NeosBE:Table.Cell>
+        <NeosBE:Badge errorLevel={item.active ? 1 : 2}>{item.active ? 'active' : 'inactive'}</NeosBE:Badge>
+    </NeosBE:Table.Cell>
+    <NeosBE:Table.ActionCell>
+        <NeosBE:Button icon="eye" action="show" arguments={{id: item.id}}/>
+    </NeosBE:Table.ActionCell>
+</NeosBE:Table.Row>
+```
+*/
 prototype(NeosBE:Table.ActionCell) < prototype(Neos.Fusion:Component) {
     content = ''
     attributes = Neos.Fusion:DataStructure

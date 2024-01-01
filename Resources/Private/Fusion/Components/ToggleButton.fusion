@@ -1,20 +1,64 @@
 /*
-A button that can be used as
+A button that can be used to toggle visibility of other HTML elements or components
 
-* Link to actions of the current module
-* Link to other modules
-* Trigger to show a modal
-* Submit button for forms
+# Usage
+
+```
+<NeosBE:ToggleButton target="target-element" />
+<div id="target-element" class="neos-hide">This is hidden by default</div>
+```
+
+**Note:** The toggle button is commonly used to expand `NeosBE:Table.CollapsedRow` components within `NeosBE:Table`s:
+
+```
+<NeosBE:Table>
+    <NeosBE:Table.Head>
+        <NeosBE:Table.Row>
+            <NeosBE:Table.HeaderCell content="" attributes.style="width: 1em"/>
+            <NeosBE:Table.HeaderCell content="Title"/>
+            <NeosBE:Table.HeaderCell content="Status"/>
+            <NeosBE:Table.HeaderCell content=""/>
+        </NeosBE:Table.Row>
+    </NeosBE:Table.Head>
+    <NeosBE:Table.Body>
+        <Neos.Fusion:Loop items={[{"id": 1, "active": true}, {"id": 2, "active": false}, {"id": 3, "active": true}]}>
+            <NeosBE:Table.FolderRow>
+                <NeosBE:Table.Cell>
+                    <NeosBE:Icon icon="cube"/>
+                </NeosBE:Table.Cell>
+                <NeosBE:Table.Cell>
+                    Title #{item.id}
+                </NeosBE:Table.Cell>
+                <NeosBE:Table.Cell>
+                    <NeosBE:Badge errorLevel={item.active ? 1 : 2}>{item.active ? 'active' : 'inactive'}</NeosBE:Badge>
+                </NeosBE:Table.Cell>
+                <NeosBE:Table.ActionCell>
+                    <NeosBE:ToggleButton target={"details_item_" + item.id}/>
+                </NeosBE:Table.ActionCell>
+            </NeosBE:Table.FolderRow>
+            <NeosBE:Table.CollapsedRow id={"details_item_" + item.id}>
+                <NeosBE:Table.Cell attributes.colspan="4">
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.<br/>
+                    Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                </NeosBE:Table.Cell>
+            </NeosBE:Table.CollapsedRow>
+        </Neos.Fusion:Loop>
+    </NeosBE:Table.Body>
+</NeosBE:Table>
+```
 */
 prototype(NeosBE:ToggleButton) < prototype(Neos.Fusion:Component) {
     # ID of the HTML element to toggle visibility for
     target = ''
+
+    # Name of the Icon on the button
     icon = 'chevron-down'
+
+    # Name of the Icon that the button shows when the target element is shown
     iconToggled = 'chevron-up'
+
+    # Optional contents of the button
     content = ''
-
-
-    #renderer = afx`<i class="fold-toggle fas fa-chevron-down icon-white" data-toggle={props.target}>{props.content}</i>`
 
     renderer = Neos.Fusion:Tag {
         tagName = 'a'

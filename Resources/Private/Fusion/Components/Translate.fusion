@@ -1,8 +1,31 @@
+/*
+A component to translate strings using XLIFF
+
+**Note:** By default, corresponding translation files are expected in `<Package-root>/Resources/Private/Translations/<locale>/<Source>.xlf`
+
+# Usage
+
+```
+<NeosBE:Translate id="someLabel" />
+<NeosBE:Translate id="someLabelWithPlaceholders" arguments={['first', 'second']} />
+<NeosBE:Translate id="someLabelWithPluralForms" quantity={numberOfResults} />
+<NeosBE:Translate id="someLabelFromADifferentSource" source="Main" />
+```
+*/
 prototype(NeosBE:Translate) < prototype(Neos.Fusion:Component) {
+    # Id of the XLIF `trans-unit`
     id = ''
+
+    # Optional arguments to be replaced (using "{0}", "{1}", ... in the translated strings)
     arguments = Neos.Fusion:DataStructure
+
+    # Original label to fallback to
     originalLabel = null
+
+    # Translation files will be found in `<Package-root>/Resources/Private/Translations/<locale>/<Source>.xlf` by default
     source = 'Modules'
+
+    # Optional quantity in order to use plural forms (see https://docs.oasis-open.org/xliff/v1.2/xliff-profile-po/xliff-profile-po-1.2-cd02.html 5.2.2)
     quantity = null
 
     renderer = ${NeosBE.I18n.translateById(request, props.id, props.arguments, props.quantity, props.source)}
