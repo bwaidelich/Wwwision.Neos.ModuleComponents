@@ -1,4 +1,4 @@
-# Wwwision.Neos.ModuleComponents
+# Fusion Components for Neos Backend Modules
 
 [Neos](https://neos.io) package with utilities and components to create Fusion based backend modules with the common look and feel
 
