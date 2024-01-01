@@ -157,6 +157,14 @@ For more advanced localization options (different locales, quantities, different
 
 See [Wwwision.Neos.ExampleModule](https://github.com/bwaidelich/Wwwision.Neos.ExampleModule) for an example Neos Module that demonstrates most of the [Components](#components) provided by this package.
 
+## Typography
+
+<a href="Docs/typography.png" target="_blank"><img align="right" hspace="10" alt="Typography" src="Docs/typography.png" width="20%"/></a>
+
+In contrast to the default Neos backend style, the CSS file provided with this package adds different headline font sizes and default styling for unordered and ordered lists: 
+
+<hr />
+
 # Components
 
 ## Badge
