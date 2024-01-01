@@ -269,6 +269,30 @@ Modal dialog containing a Form that is hidden by default and can be shown via th
 
 ## Module
 
+The root component used to render the backend module content for one MVC action
+
+### Example
+
+```xml
+Some.Package.SomeController.index = NeosBE:Module {
+    content = 'main content'
+}
+```
+
+With the `translateContent` prop set to `true`, "LLL:<id>" strings in flash messages, main and footer content will be replaced using the \Wwwision\Neos\ModuleComponents\Eel\I18nHelper::translateContent() Eel helper:
+
+```xml
+Some.Package.SomeController.someOtherAction = NeosBE:Module {
+    translateContent = true
+    content = afx`
+        <NeosBE:Badge>This will be LLL:translated</NeosBE:Badge>
+    `
+    footer = afx`
+        <NeosBE:Button action="index" icon="eye">LLL:alsoTranslated</NeosBE:Button>
+    `
+}
+```
+
 ## ModuleLink
 
 A link pointing to a different Neos Backend Module
@@ -429,13 +453,12 @@ A component to translate strings using XLIFF
 
 ### Example
 
-```
+```xml
 <NeosBE:Translate id="someLabel" />
 <NeosBE:Translate id="someLabelWithPlaceholders" arguments={['first', 'second']} />
 <NeosBE:Translate id="someLabelWithPluralForms" quantity={numberOfResults} />
 <NeosBE:Translate id="someLabelFromADifferentSource" source="Main" />
 ```
-
 
 # Contribution
 
