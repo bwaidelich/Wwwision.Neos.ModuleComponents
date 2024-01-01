@@ -159,11 +159,46 @@ See [Wwwision.Neos.ExampleModule](https://github.com/bwaidelich/Wwwision.Neos.Ex
 
 ## Typography
 
-<a href="Docs/typography.png" target="_blank"><img align="right" hspace="10" alt="Typography" src="Docs/typography.png" width="20%"/></a>
+In contrast to the default Neos backend style, the CSS file provided with this package adds different headline font sizes and default styling for unordered and ordered lists:
 
-In contrast to the default Neos backend style, the CSS file provided with this package adds different headline font sizes and default styling for unordered and ordered lists: 
+### Headings
 
-<hr />
+<a href="Docs/headings.png" target="_blank"><img align="right" hspace="10" alt="Headings" src="Docs/headings.png" width="20%"/></a>
+
+```xml
+<h1>Headline h1</h1>
+<h2>Headline h2</h2>
+<h3>Headline h3</h3>
+<h4>Headline h4</h4>
+<h5>Headline h5</h5>
+<h6>Headline h6</h6>
+```
+
+### List items
+
+<a href="Docs/lists.png" target="_blank"><img align="right" hspace="10" alt="Lists" src="Docs/lists.png" width="20%"/></a>
+
+```xml
+<ul>
+    <li>List item</li>
+    <li>List item
+        <ul>
+            <li>List item</li>
+        </ul>
+    </li>
+    <li>List item</li>
+</ul>
+
+<ol>
+    <li>List item</li>
+    <li>List item
+        <ol>
+            <li>List item</li>
+        </ol>
+    </li>
+    <li>List item</li>
+</ol>
+```
 
 # Components
 
