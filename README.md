@@ -94,10 +94,15 @@ final class SomeModuleController extends AbstractModuleController
 For example in `<Package-root>/Resources/Private/Fusion/Root.fusion`:
 
 ```
+include: resource://Wwwision.Neos.ModuleComponents/Private/Fusion/Root.fusion
+
 Some.Package.SomeModuleController.index = NeosBE:Module {
     content = afx`<p>Hello world</p>`
 }
 ```
+
+> [!IMPORTANT]  
+> Don't forget to include the Fusion components via `include: resource://Wwwision.Neos.ModuleComponents/Private/Fusion/Root.fusion`
 
 6. Navigate to the new backend module
 
