@@ -83,7 +83,13 @@ prototype(NeosBE:Button) < prototype(Neos.Fusion:Component) {
     modal = ''
 
     renderer.@context {
-        class = ${'neos-button' + (props.isPrimary ? ' neos-button-primary' : '') + (props.isDangerous ? ' neos-button-danger' : '') + (props.isSuccess ? ' neos-button-success' : '') + (props.isWarning ? ' neos-button-warning' : '')}
+        class = ${[
+            'neos-button',
+            props.isPrimary && 'neos-button-primary',
+            props.isDangerous && 'neos-button-danger',
+            props.isSuccess && 'neos-button-success',
+            props.isWarning && 'neos-button-warning'
+        ]}
         content = Neos.Fusion:Case {
             withIcon {
                 condition = ${!String.isBlank(props.icon)}
