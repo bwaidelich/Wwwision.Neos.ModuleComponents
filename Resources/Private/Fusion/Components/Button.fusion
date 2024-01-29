@@ -55,6 +55,8 @@ prototype(NeosBE:Button) < prototype(Neos.Fusion:Component) {
     # If set to `true` the button is highlighted as a dangerous button (usually with orange/red colors)
     isDangerous = false
 
+    # If set to `true` the button is highlighted as a success button (usually with green color)
+    isSuccess = false
 
     # If set, the button will link to the specified module (e.g. "administration/users"). This can be combined with  `action`, `arguments` and `addQueryString`
     module = ''
@@ -78,7 +80,7 @@ prototype(NeosBE:Button) < prototype(Neos.Fusion:Component) {
     modal = ''
 
     renderer.@context {
-        class = ${'neos-button' + (props.isPrimary ? ' neos-button-primary' : '') + (props.isDangerous ? ' neos-button-danger' : '')}
+        class = ${'neos-button' + (props.isPrimary ? ' neos-button-primary' : '') + (props.isDangerous ? ' neos-button-danger' : '') + (props.isSuccess ? ' neos-button-success' : '')}
         content = Neos.Fusion:Case {
             withIcon {
                 condition = ${!String.isBlank(props.icon)}
