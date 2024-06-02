@@ -43,12 +43,14 @@ window.addEventListener("DOMContentLoaded", () => {
 		return rtf.format(Math.floor(deltaSeconds / divisor), units[unitIndex]);
 	}
 
-    document.querySelectorAll("a[data-toggle]").forEach((element) =>
-        element.addEventListener("click", (event) => {
+	document.addEventListener("click", function (event) {
+		let toggleElement;
+		if (toggleElement = event.target.closest('a[data-toggle]')) {
 			event.preventDefault();
-			toggleClasses(element);
-        })
-    );
+			toggleClasses(toggleElement);
+		}
+	})
+
 	document.querySelectorAll('time[datetime][data-relativetime]').forEach((element) => {
 		const locale = element.dataset.locale || undefined;
 		const options = element.dataset.options ? JSON.parse(element.dataset.options) : undefined;
