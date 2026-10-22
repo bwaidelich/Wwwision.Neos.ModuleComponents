@@ -6,21 +6,18 @@ namespace Wwwision\Neos\ModuleComponents\Eel;
 
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Error\Messages\Message;
+use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Mvc\ActionRequest;
 use Neos\Flow\Mvc\Exception\InvalidFlashMessageConfigurationException;
 use Neos\Flow\Mvc\FlashMessage\FlashMessageService;
 use Neos\Flow\Security\Exception\InvalidRequestPatternException;
 use Neos\Flow\Security\Exception\NoRequestPatternFoundException;
-use Neos\Flow\Annotations as Flow;
 
 #[Flow\Scope('singleton')]
 final class FlashMessageHelper implements ProtectedContextAwareInterface
 {
-
-    public function __construct(
-        private readonly FlashMessageService $flashMessageService,
-    ) {
-    }
+    #[Flow\Inject]
+    protected FlashMessageService $flashMessageService;
 
     /**
      * Whether there are any messages in the FlashMessageContainer
@@ -45,7 +42,7 @@ final class FlashMessageHelper implements ProtectedContextAwareInterface
      * @param string|null $severity If set, only messages matching the specified severity are returned (allowed values: "Notice", "Warning", "Error", "OK")
      * @return Message[]
      */
-    public function getMessages(ActionRequest $request, string $severity = null): array
+    public function getMessages(ActionRequest $request, ?string $severity = null): array
     {
         try {
             return $this->flashMessageService->getFlashMessageContainerForRequest($request)->getMessages($severity);
@@ -62,7 +59,7 @@ final class FlashMessageHelper implements ProtectedContextAwareInterface
      * @param string|null $severity If set, only messages matching the specified severity are returned (allowed values: "Notice", "Warning", "Error", "OK")
      * @return Message[]
      */
-    public function getMessagesAndFlush(ActionRequest $request, string $severity = null): array
+    public function getMessagesAndFlush(ActionRequest $request, ?string $severity = null): array
     {
         try {
             return $this->flashMessageService->getFlashMessageContainerForRequest($request)->getMessagesAndFlush($severity);

@@ -13,14 +13,19 @@ use Neos\Flow\Mvc\ActionRequest;
 #[Flow\Scope('singleton')]
 final class I18nHelper implements ProtectedContextAwareInterface
 {
+    #[Flow\Inject]
+    protected Translator $translator;
 
-    public function __construct(
-        private readonly Translator $translator,
-        private readonly Service $i18nService,
-    ) {
-    }
+    #[Flow\Inject]
+    protected Service $i18nService;
 
-    public function translateById(ActionRequest $actionRequest, string $id, array $arguments = [], int $quantity = null, string $source = 'Modules'): ?string
+    public function translateById(
+        ActionRequest $actionRequest,
+        string $id,
+        array $arguments = [],
+        ?int $quantity = null,
+        string $source = 'Modules',
+    ): ?string
     {
         return $this->translator->translateById($id, $arguments, $quantity, null, $source, $actionRequest->getControllerPackageKey());
     }
